@@ -1,67 +1,76 @@
-# Computational-model-for-Brain-heart-Interaction-Analysis
+# Computational Model for Brain-Heart Interaction Analysis
 
-This repository presents a cross-modal machine learning pipeline designed to explore brain-heart interactions for cognitive state classification, leveraging EEG, ECG, and synthetic physiological signals. The project demonstrates how ECG-derived features can approximate EEG cognitive markers, enabling non-invasive mental state monitoring via wearable devices.
+This repository presents a **cross-modal machine learning pipeline** designed to explore brain-heart interactions for **cognitive state classification**, leveraging **EEG**, **ECG**, and **synthetic physiological signals**. It demonstrates how **ECG-derived features** can approximate EEG cognitive markers, enabling **non-invasive mental state monitoring** using wearables.
 
+---
 
+##  **Project Highlights**
 
+- ✅ **Multimodal Dataset**: EEG, ECG, and physiological signals recorded during memory and listening tasks from OpenNeuro.
+- ✅ **Low-Cost Cognitive Monitoring**: Demonstrates potential of ECG alone to infer cognitive states — ideal for wearable deployment.
+- ✅ **Synthetic Data Generation**: Uses the **Poincaré Sympathetic-Vagal Synthetic Data Generation (SV-SDG)** model to simulate HRV signals influenced by EEG.
+- ✅ **Cross-Modal Learning**: Maps ECG-derived HRV features to EEG space, enabling classification without EEG.
+- ✅ **Model Explainability**: SHAP and t-SNE visualizations provide transparency and interpretation.
 
-🚀 Project Highlights
+---
 
-•Multimodal Dataset: EEG, ECG, and other physiological signals recorded during memory and listening tasks from OpenNeuro.<br/>
-•Low-Cost Cognitive Monitoring: Demonstrates potential of ECG alone to infer cognitive states, paving the way for wearable mental health monitoring.<br/>
-•Synthetic Data Generation: Poincaré Sympathetic-Vagal Synthetic Data Generation (SV-SDG) model simulates realistic HRV signals influenced by brain activity.<br/>
-• Cross-Modal Learning Framework: Maps ECG features to EEG space, enabling cognitive state classification using only ECG signals.<br/>
-•Model Explainability: SHAP and t-SNE visualizations enhance transparency and interpretability.<br/>
+##  **Working Pipeline**
 
+### ✅ 1. **Data Acquisition**
+- OpenNeuro dataset with EEG, ECG, and physiological recordings during cognitive tasks (memory & listening).
 
+### ✅ 2. **Preprocessing**
+- **EEG**:
+  - Filtering
+  - Epoching
+  - Baseline correction using MNE
+- **ECG**:
+  - R-peak detection
+  - Epoching
+  - Signal normalization using NeuroKit2
 
+### ✅ 3. **Feature Extraction**
+- **EEG Features**:
+  - Spectral Bandpower (Delta, Theta, Alpha, Beta, Gamma)
+  - Functional connectivity measures
+  - Catch-22 time series descriptors
 
-🛠️ Working Pipeline
+- **ECG Features**:
+  - HRV Metrics: `meanNN`, `SDNN`, `RMSSD`, `SD1`, `SD2`
+  - Catch-22 descriptors
 
-✅ Data Acquisition
-OpenNeuro dataset containing EEG, ECG, and physiological recordings from subjects performing memory and listening tasks.
+### ✅ 4. **Synthetic Data Generation**
+- **SV-SDG Model**:
+  - Generates synthetic HRV signals using Poincaré plot dynamics.
+  - Simulates vagal/sympathetic influence from EEG.
 
-✅ Preprocessing
-EEG: Filtering, epoching, baseline correction using MNE.<br/>
-ECG: R-peak detection, epoching, normalization via NeuroKit2.<br/>
+### ✅ 5. **Cross-Modal Learning Framework**
+- **EEG-Based Classifiers**:
+  - Random Forest and XGBoost models trained to classify cognitive states.
+- **ECG-to-EEG Mapping**:
+  - Regression models predict EEG features from ECG HRV features.
+- **ECG-Only Classification**:
+  - Map ECG into EEG space and classify cognitive states using EEG-trained models.
 
-✅ Feature Extraction
-EEG Features:
-•Spectral Bandpower (Delta, Theta, Alpha, Beta, Gamma bands)<br/>
-•Connectivity measures<br/>
-•Catch-22 time series descriptors<br/>
-ECG Features:
-•Heart Rate Variability (HRV): meanNN, SDNN, RMSSD, SD1, SD2<br/>
-•Catch-22 time series descriptors<br/>
+### ✅ 6. **Model Evaluation & Explainability**
+- Classification metrics: Accuracy and F1-score for binary & multi-class tasks.
+- Explainability:
+  - **SHAP**: Feature importance
+  - **t-SNE**: Visualizing feature clusters
 
-✅ Synthetic Data Generation: SV-SDG Model
-•Generates synthetic HRV signals using Poincaré plot dynamics.<br/>
-•Models cardiac responses influenced by EEG-derived sympathetic-vagal activity.<br/>
+---
 
-✅ Cross-Modal Learning Framework
-•EEG-Based Classifiers: Random Forest and XGBoost trained on EEG features to classify cognitive states (e.g., Listening vs Memory Load tasks).<br/>
-•ECG-to-EEG Mapping: Regression models predict EEG feature space from ECG-derived HRV features.<br/>
-•ECG-Only Cognitive Classification: Project ECG features into EEG space and classify cognitive states using EEG-trained models.<br/>
+##  **Key Results**
 
-✅ Model Evaluation & Explainability
-•Accuracy and F1-score for binary and multi-class classification tasks.<br/>
-•SHAP for feature importance interpretation.<br/>
-•t-SNE for visualizing feature space separability.<br/>
+- High classification accuracy using EEG features.
+- Strong regression performance mapping ECG to EEG space.
+- Promising ECG-only classification — supports future wearable applications.
 
+---
 
+##  **Installation & Requirements**
 
+Install required dependencies:
 
-📊 Key Result
-
-•High classification accuracy using EEG features for cognitive state detection.<br/>
-•Demonstrated feasibility of predicting EEG features from ECG-derived HRV metrics.<br/>
-•ECG-only cognitive state classification shows promising results with potential for real-world, wearable deployment.<br/>
-
-
-
-📑 Reference
-
-This project is part of my M.Tech thesis at the Kerala University of Digital Sciences, Innovation and Technology, titled:
-
-Computational Model for Brain-Heart Interaction Analysis
-Malavika Pradeep, 2025 
+```bash
+pip install numpy pandas matplotlib seaborn scikit-learn xgboost shap mne neurokit2
